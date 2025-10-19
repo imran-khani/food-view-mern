@@ -117,21 +117,30 @@ const registerFoodPartener = async (req, res) => {
 const loginPartener = async (req, res) => {
     const { email, password } = req.body;
 
-    const isPartenerExist = await foodpartener.findOne({ email });
+    const partener = await foodpartener.findOne({ email });
 
-    if (!isPartenerExist) {
+    if (!partener) {
         return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const isValidPassword = await bcrypt.compare(
-        password,
-        isPartenerExist.email
-    );
+    const isValidPassword = await bcrypt.compare(password, partener.email);
 
     if (!isValidPassword) {
         return res.status(400).json({ message: "Invalid email or password" });
     }
+
+    const token = jwt.sign({ id: partener._id }, process.env.jwtSecret);
+
+    res.cookie("token", token);
+    res.status(200).json({
+        message: "Partener logged in successfully",
+        partener: {
+            id: parent._id,
+            name,
+            email,
+        },
+    });
 };
 
 // Export all controllers
-export { registerUser, loginUser, logoutUser, registerFoodPartener };
+export { registerUser, loginUser, logoutUser, registerFoodPartener, loginPartener };
