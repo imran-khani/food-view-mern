@@ -110,5 +110,28 @@ const registerFoodPartener = async (req, res) => {
     });
 };
 
+// ===============================
+// LOGIN FOOD PARTNER
+// ===============================
+
+const loginPartener = async (req, res) => {
+    const { email, password } = req.body;
+
+    const isPartenerExist = await foodpartener.findOne({ email });
+
+    if (!isPartenerExist) {
+        return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const isValidPassword = await bcrypt.compare(
+        password,
+        isPartenerExist.email
+    );
+
+    if (!isValidPassword) {
+        return res.status(400).json({ message: "Invalid email or password" });
+    }
+};
+
 // Export all controllers
 export { registerUser, loginUser, logoutUser, registerFoodPartener };
