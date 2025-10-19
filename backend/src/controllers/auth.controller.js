@@ -1,4 +1,5 @@
 import { userModel } from "../models/user.model.js";
+import { foodpartener} from '../models/foodpartener.model.js'
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -74,4 +75,19 @@ const loginUser = async (req, res) => {
     })
 };
 
-export { registerUser, loginUser };
+const logoutUser = async (req,res) => {
+    res.clearCookie("token");
+    res.status(200).json({
+        message: "User logged out successfully."
+    })
+}
+
+const registerFoodPartener = async (req,res)=>{
+    const {name,email,password} = req.body;
+
+    const isPartenerExist = await foodpartener.findOne({email})
+
+    
+}
+
+export { registerUser, loginUser, logoutUser };
