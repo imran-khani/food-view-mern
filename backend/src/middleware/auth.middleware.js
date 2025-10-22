@@ -1,4 +1,4 @@
-import { foodpartenermodel } from "../models/foodpartener.model";
+import { foodpartenermodel } from "../models/foodpartener.model.js";
 import jwt from "jsonwebtoken";
 
 const authFoodPartenerMiddleware = async (req, res, next) => {

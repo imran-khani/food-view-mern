@@ -1,5 +1,5 @@
 import { userModel } from "../models/user.model.js";
-import { foodpartener } from "../models/foodpartener.model.js";
+import { foodpartenermodel } from "../models/foodpartener.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -83,14 +83,14 @@ const logoutUser = async (req, res) => {
 const registerFoodPartener = async (req, res) => {
     const { name, email, password } = req.body;
 
-    const existingPartner = await foodpartener.findOne({ email });
+    const existingPartner = await foodpartenermodel.findOne({ email });
     if (existingPartner) {
         return res.status(400).json({ message: "Partner already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const partner = await foodpartener.create({
+    const partner = await foodpartenermodel.create({
         name,
         email,
         password: hashedPassword,
@@ -117,7 +117,7 @@ const registerFoodPartener = async (req, res) => {
 const loginPartener = async (req, res) => {
     const { email, password } = req.body;
 
-    const partener = await foodpartener.findOne({ email });
+    const partener = await foodpartenermodel.findOne({ email });
 
     if (!partener) {
         return res.status(400).json({ message: "Invalid email or password" });
@@ -136,7 +136,6 @@ const loginPartener = async (req, res) => {
         message: "Partener logged in successfully",
         partener: {
             id: partener._id,
-            name,
             email,
         },
     });
