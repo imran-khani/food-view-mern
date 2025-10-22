@@ -123,7 +123,7 @@ const loginPartener = async (req, res) => {
         return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const isValidPassword = await bcrypt.compare(password, partener.email);
+    const isValidPassword = await bcrypt.compare(password, partener.password);
 
     if (!isValidPassword) {
         return res.status(400).json({ message: "Invalid email or password" });
@@ -135,12 +135,28 @@ const loginPartener = async (req, res) => {
     res.status(200).json({
         message: "Partener logged in successfully",
         partener: {
-            id: parent._id,
+            id: partener._id,
             name,
             email,
         },
     });
 };
 
+// ===============================
+// LOGOUT FOOD PARTNER
+// ===============================
+
+const logoutPartener = async (req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({ message: "user logout successfully." });
+};
+
 // Export all controllers
-export { registerUser, loginUser, logoutUser, registerFoodPartener, loginPartener };
+export {
+    registerUser,
+    loginUser,
+    logoutUser,
+    registerFoodPartener,
+    loginPartener,
+    logoutPartener,
+};

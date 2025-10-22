@@ -4,7 +4,8 @@ import {
     loginUser,
     logoutUser,
     registerFoodPartener,
-    loginFoodPartener,
+    loginPartener,
+    logoutPartener,
 } from "../controllers/auth.controller.js";
 
 const router = express.Router();
@@ -15,7 +16,8 @@ router.post("/user/login", loginUser);
 router.post("/user/logout", logoutUser);
 
 // FOOD PARTNER ROUTES
-router.post("/partner/register", registerFoodPartener);
-router.post("/partner/login", loginFoodPartener);
+router.post("/partener/register", registerFoodPartener);
+router.post("/partener/login", loginPartener);
+router.post("/paretener/logout", logoutPartener);
 
 export default router;
