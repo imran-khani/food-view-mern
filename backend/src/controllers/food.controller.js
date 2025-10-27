@@ -1,7 +1,8 @@
 import { foodpartenermodel } from "../models/foodpartener.model.js";
 
 const createFood = async (req,res)=>{
- return res.status(200).json({message: "Food accessed"})
+    console.log(req.body)
+    console.log(req.file)
 }
 
 
