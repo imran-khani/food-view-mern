@@ -19,4 +19,6 @@ const foodSchema = new Schema({
     }
 },{timestamps:true})
 
-export const foodModel = model('food',foodSchema)
+const foodModel = model('food',foodSchema)
+
+export default foodModel

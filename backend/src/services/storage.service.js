@@ -9,7 +9,7 @@ const client = new ImageKit({
     urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
-export const uploadFile = async (file, fileName) => {
+export const uploadToImageKit  = async (file, fileName) => {
     try {
         const result = await client.files.upload({
             file: file,
