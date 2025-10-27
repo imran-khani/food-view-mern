@@ -1,12 +1,25 @@
-import ImageKit from '@imagekit/nodejs';
+import ImageKit from "@imagekit/nodejs";
+import { configDotenv } from "dotenv";
+
+configDotenv();
 
 const client = new ImageKit({
-  privateKey: process.env['IMAGEKIT_PRIVATE_KEY'], // This is the default and can be omitted
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
-const response = await client.files.upload({
-  file: fs.createReadStream('path/to/file'),
-  fileName: 'file-name.jpg',
-});
-
-console.log(response);
+export const uploadFile = async (file, fileName) => {
+    try {
+        const result = await client.files.upload({
+            file: file,
+            fileName: fileName,
+            useUniqueFileName: true,
+            folder: "uploads",
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
