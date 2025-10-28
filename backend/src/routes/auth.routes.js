@@ -18,6 +18,6 @@ router.post("/user/logout", logoutUser);
 // FOOD PARTNER ROUTES
 router.post("/partener/register", registerFoodPartener);
 router.post("/partener/login", loginPartener);
-router.post("/paretener/logout", logoutPartener);
+router.post("/partener/logout", logoutPartener);
 
 export default router;

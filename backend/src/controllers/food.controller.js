@@ -7,6 +7,12 @@ const createFood = async (req, res) => {
             res.status(400).json({ error: "No file uploaded" });
         }
 
+        if (req.file.mimetype !== "video/mp4") {
+            return res
+                .status(400) 
+                .json({ error: "Invalid file type. Only mp4 are allowed." });
+        }
+
         const uploadResponse = await uploadToImageKit(
             req.file.buffer,
             req.file.video
